@@ -335,6 +335,7 @@ The database schema has been optimized for:
 
 ## 🧬 نمودار موجودیت-رابطه (ERD)  
 
+
 ```mermaid
 erDiagram
     Genre ||--o{ Media : "has"
@@ -347,6 +348,80 @@ erDiagram
     Media ||--o{ Comment : "receives"
     User ||--o{ WatchedMedia : "views"
     Media ||--o{ WatchedMedia : "viewed in"
+
+    Genre {
+        TINYINT GenreId PK
+        NVARCHAR Name_Genre
+    }
+
+    MediaType {
+        TINYINT TypeId PK
+        NVARCHAR Type_Name
+    }
+
+    Media {
+        BIGINT MediaId PK
+        NVARCHAR Title
+        NVARCHAR Description
+        NVARCHAR Awards
+        DATE ReleaseDate
+        TINYINT Score
+        TINYINT GenreId FK
+        TINYINT TypeId FK
+        SMALLINT Duration
+        NVARCHAR Language
+    }
+
+    Person {
+        INT PersonId PK
+        NVARCHAR FullName
+    }
+
+    Profession {
+        INT ProfessionId PK
+        NVARCHAR ProfessionName
+    }
+
+    MediaPerson {
+        BIGINT MediaPersonId PK
+        BIGINT MediaId FK
+        INT PersonId FK
+        INT ProfessionId FK
+    }
+
+    SubscriptionType {
+        TINYINT SubscriptionTypeId PK
+        NVARCHAR SubscriptionName
+    }
+
+    User {
+        INT UserId PK
+        NVARCHAR FirstName
+        NVARCHAR LastName
+        NVARCHAR Username
+        NVARCHAR Phone
+        VARCHAR PasswordHash
+        NVARCHAR Email
+        UNIQUEIDENTIFIER Uniqueidentifier
+        NVARCHAR Bio
+        TINYINT SubscriptionTypeId FK
+        DATETIME CreatedDate
+    }
+
+    Comment {
+        BIGINT CommentId PK
+        NVARCHAR CommentText
+        INT UserId FK
+        BIGINT MediaId FK
+        DATETIME CreatedDate
+    }
+
+    WatchedMedia {
+        INT WatchedMediaId PK
+        INT UserId FK
+        BIGINT MediaId FK
+        DATETIME WatchedDate
+    }
 ```
 
 ---
